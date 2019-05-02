@@ -1,0 +1,37 @@
+%div.wrapper
+  %div.side-bar
+    %div.header
+      %h3.header__name
+        = current_user.name
+      %ul.header__lists
+        %li.list
+          = link_to new_group_path do
+            %i.fa.fa-pencil-square-o.white
+        %li.list
+          = link_to edit_user_registration_path do
+            %i.fa.fa-cog.white
+    .groups
+      = render partial: "sidebar_groups", collection: @groups, as: "group"
+  %div.chat
+    %div.header
+      %div.left-header
+        %div.left-header__title
+          = @group.name
+        %ul.left-header__members
+          Member :
+          %li.member
+            - @group.users.each do |member|
+              = member.name
+      %div.right-header
+        = link_to edit_group_path(@group),class: "right-header__button"  do
+          Edit
+    %div.messages
+      = render @messages
+    %div.form
+      = form_for [@group, @message], id: 'new_message' do |f|
+        = f.text_field :content, class: 'form__message', placeholder: 'type a message'
+        %div.form__mask
+          %label.form__mask__image
+            = fa_icon 'picture-o', class: 'icon'
+            = f.file_field :image, class: 'hidden'
+        = f.submit 'Send', class: 'form__submit'

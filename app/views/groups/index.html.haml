@@ -1,0 +1,20 @@
+.wrapper
+  .side-bar
+    .header
+      %h3.header__name
+        = current_user.name
+      %ul.header__lists
+        %li.list
+          = link_to edit_user_registration_path do
+            %i.fa.fa-pencil-square-o.white
+        %li.list
+          = link_to new_group_path do
+            %i.fa.fa-cog.white
+    .groups
+      - current_user.groups.each do |group|
+        .group
+          = link_to group_messages_path(group) do
+            %div.group__name
+              = group.name
+            %div.group__message
+              = group.show_last_message

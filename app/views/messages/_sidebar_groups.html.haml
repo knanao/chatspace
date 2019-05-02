@@ -1,0 +1,6 @@
+.group
+  = link_to group_messages_path(group) do
+    %div.group__name
+      = group.name
+    %div.group__message
+      = group.show_last_message
